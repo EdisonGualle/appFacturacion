@@ -23,49 +23,13 @@ APLICAIONES DE FACTURACION CON LARAVEL ANGEL MELENDRES Y EDISON GUALLE es un pro
    DB_USERNAME=tu_usuario
    DB_PASSWORD=tu_contraseña
 
-
-
-
 # ANEXOS - Sistema de Facturación
 
 ![Requisitos de Factura](https://github.com/EdisonGualle/factura/raw/main/anexos/factura.png)
-
-
-## Descripción
-
-
-# ANEXOS - Sistema de Facturación
-
-![Requisito de factura](../anexos/fotobd.png)
-
-## Descripción
+![Base de datos](https://github.com/EdisonGualle/factura/blob/main/anexos/fotobd.png)
+![Consulta 1 ](https://github.com/EdisonGualle/factura/blob/main/anexos/fotopostman1.png)
+![Consulta 2 ](https://github.com/EdisonGualle/factura/blob/main/anexos/fotopostman2.png)
 
 
 
-# ANEXOS - Sistema de Facturación
-
-![Requisito de factura](../anexos/fotoenv.png)
-
-## Descripción
-
-
-# ANEXOS - Sistema de Facturación
-
-![Requisito de factura](../anexos/fotorunserve.png)
-
-## Descripción
-
-
-# ANEXOS - Sistema de Facturación
-
-![Requisito de factura](../anexos/fotopostman1.png)
-
-## Descripción
-
-
-# ANEXOS - Sistema de Facturación
-
-![Requisito de factura](../anexos/fotopostman2.png)
-
-## Descripción
 
