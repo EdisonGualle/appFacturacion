@@ -2,83 +2,63 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Factura;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class FacturaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $facturas = Factura::all();
+        return response()->json(['data' => $facturas], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show(Factura $factura): JsonResponse
     {
-        //
+        return response()->json(['data' => $factura], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $validatedData = $request->validate([
+            'num_factura' => 'required|string|max:100|unique:factura,num_factura',
+            'fechaEmision' => 'nullable|date',
+            'fechaAutorizacion' => 'nullable|date',
+            'acutorizacionSRI' => 'nullable|string|max:45',
+            'guiaRemision' => 'nullable|string|max:45',
+            'formaPago' => 'required|integer',
+            'cliente' => 'required|string',
+            'emisor' => 'required|string',
+        ]);
+
+        $factura = Factura::create($validatedData);
+
+        return response()->json(['data' => $factura], 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update(Request $request, Factura $factura): JsonResponse
     {
-        //
+        $validatedData = $request->validate([
+            'num_factura' => 'required|string|max:100|unique:factura,num_factura,' . $factura->num_factura,
+            'fechaEmision' => 'nullable|date',
+            'fechaAutorizacion' => 'nullable|date',
+            'acutorizacionSRI' => 'nullable|string|max:45',
+            'guiaRemision' => 'nullable|string|max:45',
+            'formaPago' => 'required|integer',
+            'cliente' => 'required|string',
+            'emisor' => 'required|string',
+        ]);
+
+        $factura->update($validatedData);
+
+        return response()->json(['data' => $factura], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function destroy(Factura $factura): JsonResponse
     {
-        //
-    }
+        $factura->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json(null, 204);
     }
 }

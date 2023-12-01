@@ -2,10 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class FormasPago extends Model
 {
-    use HasFactory;
+    protected $table = 'FormasPago';
+
+    protected $primaryKey = 'idFormasPago';
+
+    public $incrementing = false;
+
+    protected $fillable = [
+        'idFormasPago', 'nombre',
+    ];
+
+    public $timestamps = false;
 }

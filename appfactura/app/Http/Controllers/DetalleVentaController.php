@@ -2,83 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetalleVenta;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class DetalleVentaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $detallesVenta = DetalleVenta::all();
+        return response()->json(['data' => $detallesVenta], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show(DetalleVenta $detalleVenta): JsonResponse
     {
-        //
+        return response()->json(['data' => $detalleVenta], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $validatedData = $request->validate([
+            'num_factura' => 'required|string',
+            'codigo_producto' => 'required|string',
+            'cantidad' => 'required|numeric',
+            'precio_unitario' => 'required|numeric',
+            'subtotal' => 'required|numeric',
+        ]);
+
+        $detalleVenta = DetalleVenta::create($validatedData);
+
+        return response()->json(['data' => $detalleVenta], 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update(Request $request, DetalleVenta $detalleVenta): JsonResponse
     {
-        //
+        $validatedData = $request->validate([
+            'num_factura' => 'required|string',
+            'codigo_producto' => 'required|string',
+            'cantidad' => 'required|numeric',
+            'precio_unitario' => 'required|numeric',
+            'subtotal' => 'required|numeric',
+        ]);
+
+        $detalleVenta->update($validatedData);
+
+        return response()->json(['data' => $detalleVenta], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function destroy(DetalleVenta $detalleVenta): JsonResponse
     {
-        //
-    }
+        $detalleVenta->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json(null, 204);
     }
 }

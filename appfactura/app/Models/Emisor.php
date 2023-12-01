@@ -2,10 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Emisor extends Model
 {
-    use HasFactory;
+    protected $table = 'Emisor';
+
+    protected $primaryKey = 'cedulaRuc';
+
+    public $incrementing = false;
+
+    protected $fillable = [
+        'cedulaRuc', 'nombreComercial', 'razonSocial', 'email', 'telefono', 'direccion',
+    ];
+
+    public $timestamps = false;
 }
