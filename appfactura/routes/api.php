@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DetalleVentaController;
 use App\Http\Controllers\EmisorController;
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProductoController;
 use Illuminate\Http\Request;
@@ -59,3 +60,10 @@ Route::get('detalles-venta/{detalleVenta}', [DetalleVentaController::class, 'sho
 Route::post('detalles-venta', [DetalleVentaController::class, 'store']);
 Route::put('detalles-venta/{detalleVenta}', [DetalleVentaController::class, 'update']);
 Route::delete('detalles-venta/{detalleVenta}', [DetalleVentaController::class, 'destroy']);
+
+
+
+/* CONSULTAS PARA EMPRESA, Sirve como ejemplo para consultas mas avanzadas que se desea ontener */
+Route::get('empresa/invoices/{cliente}', [EmpresaController::class, 'getInvoicesForClient']);
+Route::get('empresa/sale-details/{numFactura}', [EmpresaController::class, 'getSaleDetailsForInvoice']);
+Route::get('empresa/sales/{cliente}', [EmpresaController::class, 'getSalesForClient']);

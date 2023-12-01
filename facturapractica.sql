@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-12-2023 a las 17:35:17
+-- Tiempo de generación: 01-12-2023 a las 18:24:24
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -59,6 +59,13 @@ CREATE TABLE `detalle_venta` (
   `subtotal` decimal(10,3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `detalle_venta`
+--
+
+INSERT INTO `detalle_venta` (`num_factura`, `codigo_producto`, `cantidad`, `precio`, `descuento`, `subtotal`) VALUES
+('8192371982739182', 'chmpaa1', 12, 324.000, 0.000, 12344.000);
+
 -- --------------------------------------------------------
 
 --
@@ -73,6 +80,13 @@ CREATE TABLE `emisor` (
   `telefono` varchar(10) DEFAULT NULL,
   `direccion` varchar(145) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `emisor`
+--
+
+INSERT INTO `emisor` (`cedulaRuc`, `nombreComercial`, `razonSocial`, `email`, `telefono`, `direccion`) VALUES
+('0504185174001', 'EMPRESA PATITO', 'EMPRESA PATITO', 'carlos@gmail.com', '0987654432', 'Quito call n y 3');
 
 -- --------------------------------------------------------
 
@@ -90,6 +104,13 @@ CREATE TABLE `factura` (
   `cliente` varchar(15) NOT NULL,
   `emisor` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `factura`
+--
+
+INSERT INTO `factura` (`num_factura`, `fechaEmision`, `fechaAutorizacion`, `acutorizacionSRI`, `guiaRemision`, `formaPago`, `cliente`, `emisor`) VALUES
+('8192371982739182', '2023-12-06', '2023-12-07', '87329429834723', '29384293849233', 1, '123456789', '0504185174001');
 
 -- --------------------------------------------------------
 
@@ -117,6 +138,14 @@ CREATE TABLE `formaspago` (
   `idFormasPago` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `formaspago`
+--
+
+INSERT INTO `formaspago` (`idFormasPago`, `nombre`) VALUES
+(1, 'efectivo'),
+(2, 'transferencia');
 
 -- --------------------------------------------------------
 
@@ -181,10 +210,18 @@ CREATE TABLE `producto` (
   `codigo` varchar(45) NOT NULL,
   `nombre` varchar(245) NOT NULL,
   `precio` decimal(10,3) DEFAULT NULL,
-  `precioMasIva` varchar(45) DEFAULT NULL,
+  `precioMasIva` decimal(10,3) DEFAULT NULL,
   `descripcion` varchar(250) DEFAULT NULL,
   `porcentajeIva` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`codigo`, `nombre`, `precio`, `precioMasIva`, `descripcion`, `porcentajeIva`) VALUES
+('chmpaa1', 'chompa de hombre', 12.300, 12.300, 'descripcion 1 de chombpo', 4),
+('pan1', 'pantalon de mujer a1', 15.000, 16.000, 'descpcion de un pantalon', 12);
 
 -- --------------------------------------------------------
 

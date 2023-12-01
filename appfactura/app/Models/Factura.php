@@ -17,4 +17,10 @@ class Factura extends Model
     ];
 
     public $timestamps = false;
+
+
+    public function detalleVentas()
+    {
+        return $this->hasMany(DetalleVenta::class, 'num_factura', 'num_factura');
+    }
 }
