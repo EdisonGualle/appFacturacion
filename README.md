@@ -28,7 +28,7 @@ APLICAIONES DE FACTURACION CON LARAVEL ANGEL MELENDRES Y EDISON GUALLE es un pro
 
 # ANEXOS - Sistema de Facturación
 
-![Requisito de factura]([../anexos/factura.png](https://github.com/EdisonGualle/factura/blob/2d905ec587873f6054245f765c52f46eace4f235/anexos/factura.png))
+![Requisito de factura]([[../anexos/factura.png](https://github.com/EdisonGualle/factura/blob/2d905ec587873f6054245f765c52f46eace4f235/anexos/factura.png)](https://github.com/EdisonGualle/factura/blob/main/anexos/factura.png))
 
 ## Descripción
 
