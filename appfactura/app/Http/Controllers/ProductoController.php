@@ -2,83 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class ProductoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $productos = Producto::all();
+        return response()->json(['data' => $productos], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show(Producto $producto): JsonResponse
     {
-        //
+        return response()->json(['data' => $producto], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $validatedData = $request->validate([
+            'codigo' => 'required|string',
+            'nombre' => 'required|string',
+            'precio' => 'nullable|numeric',
+            'precioMasIva' => 'nullable|string',
+            'descripcion' => 'nullable|string',
+            'porcentajeIva' => 'nullable|integer',
+        ]);
+
+        $producto = Producto::create($validatedData);
+
+        return response()->json(['data' => $producto], 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update(Request $request, Producto $producto): JsonResponse
     {
-        //
+        $validatedData = $request->validate([
+            'codigo' => 'required|string',
+            'nombre' => 'required|string',
+            'precio' => 'nullable|numeric',
+            'precioMasIva' => 'nullable|string',
+            'descripcion' => 'nullable|string',
+            'porcentajeIva' => 'nullable|integer',
+        ]);
+
+        $producto->update($validatedData);
+
+        return response()->json(['data' => $producto], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function destroy(Producto $producto): JsonResponse
     {
-        //
-    }
+        $producto->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json(null, 204);
     }
 }

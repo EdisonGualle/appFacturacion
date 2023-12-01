@@ -5,74 +5,54 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class ClienteController extends Controller
 {
-    // Display a listing of the resource.
-    public function index()
+    public function index(): JsonResponse
     {
-    
-
-        return Cliente::all();
-    }
-    /* 
-    // Show the form for creating a new resource.
-    public function create()
-    {
-        return view('clientes.create');
+        return response()->json(['data' => Cliente::all()], 200);
     }
 
-    // Store a newly created resource in storage.
-    public function store(Request $request)
+    public function show($id): JsonResponse
+    {
+        return response()->json(['data' => Cliente::findOrFail($id)], 200);
+    }
+
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
-            'cedulaRuc' => 'required|unique:acuaticos.cliente',
-            'nombre' => 'nullable|string',
-            'direccion' => 'nullable|string',
-            'email' => 'nullable|email',
-            'telefono' => 'nullable|string',
-        ]);
+            'cedulaRuc' => 'required|string|max:15',
+            'nombre' => 'nullable|string|max:145',
+            'direccion' => 'nullable|string|max:245',
+            'email' => 'nullable|email|max:145',
+            'telefono' => 'nullable|string|max:10',
+        ]); 
 
-        Cliente::create($request->all());
-
-        return redirect()->route('clientes.index')
-            ->with('success', 'Cliente created successfully');
+        return response()->json(['data' => Cliente::create($request->all())], 201);
     }
 
-    // Display the specified resource.
-    public function show(Cliente $cliente)
-    {
-        return view('clientes.show', compact('cliente'));
-    }
-
-    // Show the form for editing the specified resource.
-    public function edit(Cliente $cliente)
-    {
-        return view('clientes.edit', compact('cliente'));
-    }
-
-    // Update the specified resource in storage.
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $id): JsonResponse
     {
         $request->validate([
-            'nombre' => 'nullable|string',
-            'direccion' => 'nullable|string',
-            'email' => 'nullable|email',
-            'telefono' => 'nullable|string',
+            'cedulaRuc' => 'required|string|max:15|unique:cedulaRuc,' . $id,
+            'nombre' => 'nullable|string|max:145',
+            'direccion' => 'nullable|string|max:245',
+            'email' => 'nullable|email|max:145',
+            'telefono' => 'nullable|string|max:10',
         ]);
 
+        $cliente = Cliente::findOrFail($id);
         $cliente->update($request->all());
 
-        return redirect()->route('clientes.index')
-            ->with('success', 'Cliente updated successfully');
+        return response()->json(['data' => $cliente], 200);
     }
 
-    // Remove the specified resource from storage.
-    public function destroy(Cliente $cliente)
+    public function destroy($id): JsonResponse
     {
+        $cliente = Cliente::findOrFail($id);
         $cliente->delete();
 
-        return redirect()->route('clientes.index')
-            ->with('success', 'Cliente deleted successfully');
-    } */
+        return response()->json(null, 204);
+    }
 }

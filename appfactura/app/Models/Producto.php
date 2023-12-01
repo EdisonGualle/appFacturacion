@@ -2,10 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
 {
-    use HasFactory;
+    protected $table = 'producto';
+
+    protected $primaryKey = ['codigo', 'nombre'];
+
+    public $incrementing = false;
+
+    protected $fillable = [
+        'codigo', 'nombre', 'precio', 'precioMasIva', 'descripcion', 'porcentajeIva'
+    ];
+
+    public $timestamps = false;
 }
